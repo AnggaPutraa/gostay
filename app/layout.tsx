@@ -1,5 +1,5 @@
 import HydrationHandler from './components/HydrationHandler';
-import Modal from './components/modal/Modal';
+import RegisterModal from './components/modal/RegisterModal';
 import Navbar from './components/navbar/Navbar';
 import './globals.css'
 import { Nunito } from 'next/font/google';
@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <HydrationHandler>
-          <Modal isOpen title='Hello' />
+          <RegisterModal />
           <Navbar />
         </HydrationHandler>
         {children}
