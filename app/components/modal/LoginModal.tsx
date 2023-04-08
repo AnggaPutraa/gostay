@@ -1,10 +1,9 @@
 'use client';
 
-import axios from 'axios';
 import { signIn } from 'next-auth/react';
 import { AiFillGithub } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from 'react-hot-toast';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
@@ -14,7 +13,6 @@ import Input from '../inputs/Input';
 import Button from '../Button';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import { useRouter } from 'next/navigation';
-
 
 const LoginModal = () => {
     const registerModal = useRegisterModal();
