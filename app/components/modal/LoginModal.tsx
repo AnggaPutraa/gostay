@@ -15,6 +15,7 @@ import Button from '../Button';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import { useRouter } from 'next/navigation';
 
+
 const LoginModal = () => {
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
@@ -85,13 +86,13 @@ const LoginModal = () => {
                 outline
                 label='Continue with Google'
                 icon={FcGoogle}
-                onClick={() => { }}
+                onClick={() => { signIn('google')}}
             />
             <Button
                 outline
                 label='Continue with Github'
                 icon={AiFillGithub}
-                onClick={() => { }}
+                onClick={() => { signIn('github') }}
             />
             <div className='text-neutral-500 text-center mt-2 font-light'>
                 <div className='flex flex-row items-center justify-center gap-2'>
