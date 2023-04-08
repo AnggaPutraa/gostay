@@ -3,6 +3,7 @@ import RegisterModal from './components/modal/RegisterModal';
 import Navbar from './components/navbar/Navbar';
 import './globals.css'
 import { Nunito } from 'next/font/google';
+import ToastProvider from './providers/ToasterProvider';
 
 export const metadata = {
   title: 'gostay',
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <HydrationHandler>
+          <ToastProvider />
           <RegisterModal />
           <Navbar />
         </HydrationHandler>
