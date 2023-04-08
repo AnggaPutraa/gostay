@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <HydrationHandler>
-          <Modal />
+          <Modal isOpen title='Hello' />
           <Navbar />
         </HydrationHandler>
         {children}
