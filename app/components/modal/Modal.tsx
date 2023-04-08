@@ -40,7 +40,6 @@ const Modal: React.FC<ModalProps> = ({
         if (disabled) {
             return;
         }
-
         setShowModal(false);
         setTimeout(() => {
             onClose();
@@ -51,7 +50,6 @@ const Modal: React.FC<ModalProps> = ({
         if (disabled) {
             return;
         }
-
         onSubmit();
     }, [onSubmit, disabled]);
 
@@ -59,7 +57,6 @@ const Modal: React.FC<ModalProps> = ({
         if (disabled || !secondaryAction) {
             return;
         }
-
         secondaryAction();
     }, [secondaryAction, disabled]);
 
