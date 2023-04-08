@@ -5,6 +5,7 @@ import './globals.css'
 import { Nunito } from 'next/font/google';
 import ToastProvider from './providers/ToasterProvider';
 import LoginModal from './components/modal/LoginModal';
+import getCurrentUser from './actions/getCurrentUser';
 
 export const metadata = {
   title: 'gostay',
@@ -15,11 +16,12 @@ const font = Nunito({
   subsets: ['latin']
 })
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const currentUser = await getCurrentUser();
   return (
     <html lang="en">
       <body className={font.className}>
@@ -27,7 +29,7 @@ export default function RootLayout({
           <ToastProvider />
           <LoginModal />
           <RegisterModal />
-          <Navbar />
+          <Navbar currentUser={currentUser}/>
         </HydrationHandler>
         {children}
       </body>
