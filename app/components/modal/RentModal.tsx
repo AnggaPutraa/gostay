@@ -10,6 +10,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import CountrySelect, { CountrySelectValue } from "../inputs/CountrySelect";
 import dynamic from "next/dynamic";
 import Counter from "../inputs/Counter";
+import ImageUplaod from "../ImageUpload";
 
 enum STEP {
     CATEGORY = 0,
@@ -164,8 +165,12 @@ const RentModal = () => {
 
     if (step === STEP.IMAGES) {
         bodyContent = (
-            <div>
-
+            <div className="flex flex-col gap-8">
+                <Heading
+                    title="Add a photo of your place"
+                    subtitle="Show guests what your place looks like!"
+                />
+                <ImageUplaod />
             </div>
         );
     }
