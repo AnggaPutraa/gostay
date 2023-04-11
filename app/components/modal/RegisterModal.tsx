@@ -9,7 +9,7 @@ import { signIn } from 'next-auth/react';
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import axios from 'axios';
-import * as Yup from "yup";
+import * as validator from "yup";
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import Modal from './Modal';
 import Heading from '../Heading';
@@ -22,9 +22,9 @@ const RegisterModal = () => {
     const loginModal = useLoginModal();
     const [isLoading, setIsLoading] = useState(false);
 
-    const formSchema = Yup.object().shape({
-        email: Yup.string().email("An valid email is required").required("Email is required"),
-        password: Yup.string()
+    const formSchema = validator.object().shape({
+        email: validator.string().email("An valid email is required").required("Email is required"),
+        password: validator.string()
             .required("Password is required")
             .min(8, "Password length should be at least 8 characters")
             .max(12, "Password cannot exceed more than 12 characters"),
