@@ -23,7 +23,9 @@ const RegisterModal = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const formSchema = validator.object().shape({
-        email: validator.string().email("An valid email is required").required("Email is required"),
+        email: validator.string()
+            .email("An valid email is required")
+            .required("Email is required"),
         password: validator.string()
             .required("Password is required")
             .min(8, "Password length should be at least 8 characters")
