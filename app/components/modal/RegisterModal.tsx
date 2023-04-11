@@ -1,12 +1,15 @@
 'use client';
 
-import axios from 'axios';
 import { AiFillGithub } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import { useState, useCallback } from 'react';
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from 'react-hot-toast';
 import { signIn } from 'next-auth/react';
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import axios from 'axios';
+import * as Yup from "yup";
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import Modal from './Modal';
 import Heading from '../Heading';
@@ -19,9 +22,18 @@ const RegisterModal = () => {
     const loginModal = useLoginModal();
     const [isLoading, setIsLoading] = useState(false);
 
+    const formSchema = Yup.object().shape({
+        email: Yup.string().email("An valid email is required").required("Email is required"),
+        password: Yup.string()
+            .required("Password is required")
+            .min(8, "Password length should be at least 8 characters")
+            .max(12, "Password cannot exceed more than 12 characters"),
+    });
+
     const {
         register,
         handleSubmit,
+        watch,
         formState: {
             errors,
         }
@@ -30,7 +42,8 @@ const RegisterModal = () => {
             name: '',
             email: '',
             password: '',
-        }
+        },
+        resolver: yupResolver(formSchema),
     });
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {

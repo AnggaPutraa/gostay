@@ -53,6 +53,16 @@ const Input = ({
             `}>
                 {label}
             </label>
+            {id == 'email' && (
+                <div className="text-rose-500 mt-2">
+                    {errors?.email?.message}
+                </div>
+            )}
+            {id == 'password' && (
+                <div className="text-rose-500 mt-2">
+                    {errors?.password?.message}
+                </div>
+            )}
         </div>
     );
 }
