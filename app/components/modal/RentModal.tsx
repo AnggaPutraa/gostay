@@ -10,7 +10,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import CountrySelect, { CountrySelectValue } from "../inputs/CountrySelect";
 import dynamic from "next/dynamic";
 import Counter from "../inputs/Counter";
-import ImageUplaod from "../ImageUpload";
+import ImageUplaod from "../inputs/ImageUpload";
 
 enum STEP {
     CATEGORY = 0,
@@ -57,6 +57,7 @@ const RentModal = () => {
     const guestCount = watch('guestCount');
     const roomCount = watch('roomCount');
     const bathroomCount = watch('bathroomCount');
+    const imageSrc = watch('imageSrc');
 
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
@@ -170,7 +171,10 @@ const RentModal = () => {
                     title="Add a photo of your place"
                     subtitle="Show guests what your place looks like!"
                 />
-                <ImageUplaod />
+                <ImageUplaod
+                    value={imageSrc}
+                    onChange={(value) => setCustomValue('imageSrc', value)}
+                />
             </div>
         );
     }
