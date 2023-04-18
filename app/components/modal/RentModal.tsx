@@ -11,6 +11,7 @@ import CountrySelect, { CountrySelectValue } from "../inputs/CountrySelect";
 import dynamic from "next/dynamic";
 import Counter from "../inputs/Counter";
 import ImageUplaod from "../inputs/ImageUpload";
+import Input from "../inputs/Input";
 
 enum STEP {
     CATEGORY = 0,
@@ -25,6 +26,7 @@ const RentModal = () => {
     const rentModal = useRentModal();
 
     const [step, setStep] = useState(STEP.CATEGORY);
+    const [isLoading, setIsLoading] = useState(false);
 
     const {
         register,
@@ -181,16 +183,49 @@ const RentModal = () => {
 
     if (step === STEP.DESCRIPTION) {
         bodyContent = (
-            <div>
-
+            <div className="flex flex-col gap-8">
+                <Heading
+                    title="How would you describe your place?"
+                    subtitle="Short and sweet works best!"
+                />
+                <Input
+                    id="title"
+                    label="title"
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    required
+                />
+                <hr />
+                <Input
+                    id="description"
+                    label="description"
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    required
+                />
             </div>
         );
     }
 
     if (step === STEP.PRICE) {
         bodyContent = (
-            <div>
-
+            <div className="flex flex-col gap-8">
+                <Heading
+                    title="Now set your price"
+                    subtitle="How much do you charge per night?"
+                />
+                <Input
+                    id="price"
+                    label="price"
+                    formatPrice
+                    type="number"
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    required
+                />
             </div>
         );
     }
