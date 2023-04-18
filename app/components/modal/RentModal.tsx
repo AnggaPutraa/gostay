@@ -6,12 +6,15 @@ import { useMemo, useState } from "react";
 import Heading from "../Heading";
 import { categories } from "@/app/constants/categories";
 import CategoryInput from "../inputs/CategoryInput";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
 import CountrySelect, { CountrySelectValue } from "../inputs/CountrySelect";
 import dynamic from "next/dynamic";
 import Counter from "../inputs/Counter";
 import ImageUplaod from "../inputs/ImageUpload";
 import Input from "../inputs/Input";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 enum STEP {
     CATEGORY = 0,
@@ -28,6 +31,8 @@ const RentModal = () => {
     const [step, setStep] = useState(STEP.CATEGORY);
     const [isLoading, setIsLoading] = useState(false);
 
+    const router = useRouter();
+
     const {
         register,
         handleSubmit,
@@ -39,6 +44,8 @@ const RentModal = () => {
         reset,
     } = useForm<FieldValues>({
         defaultValues: {
+            title: '',
+            description: '',
             category: '',
             location: null,
             guestCount: 1,
@@ -46,8 +53,6 @@ const RentModal = () => {
             bathroomCount: 1,
             imageSrc: '',
             price: 1,
-            title: '',
-            description: '',
         }
     });
 
@@ -77,6 +82,30 @@ const RentModal = () => {
         setStep((value) => value + 1);
     }
 
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+        if (step !== STEP.PRICE) {
+            return onNext();
+        }
+
+        setIsLoading(true);
+
+        console.log(data);
+
+        axios.post('/api/listings', data)
+            .then(() => {
+                toast.success('Listing created!');
+                router.refresh();
+                reset();
+                setStep(STEP.CATEGORY)
+                rentModal.onClose();
+            })
+            .catch(() => {
+                toast.error('Something went wrong.');
+            })
+            .finally(() => {
+                setIsLoading(false);
+            })
+    }
     const actionLabel = useMemo(() => {
         if (step === STEP.PRICE) {
             return 'Create';
@@ -235,7 +264,7 @@ const RentModal = () => {
             title="Gostay your home!"
             isOpen={rentModal.isOpen}
             onClose={rentModal.onClose}
-            onSubmit={onNext}
+            onSubmit={handleSubmit(onSubmit)}
             actionLabel={actionLabel}
             secondaryAction={step === STEP.CATEGORY ? undefined : onBack}
             secondaryActionLabel={secondaryActionLabel}
