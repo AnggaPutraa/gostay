@@ -3,12 +3,12 @@
 import { useMemo, useState } from "react";
 import { categories } from "@/app/constants/categories";
 import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
-import CountrySelect, { CountrySelectValue } from "../inputs/CountrySelect";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 import axios from "axios";
 import useRentModal from "@/app/hooks/useRentModal";
+import CountrySelect  from "../inputs/CountrySelect";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import CategoryInput from "../inputs/CategoryInput";
