@@ -23,7 +23,7 @@ const ListingCard = ({
 }: ListingCardProps) => {
     return (
         <div>
-
+            
         </div>
     );
 }
