@@ -17,7 +17,7 @@ import Counter from "../inputs/Counter";
 import ImageUplaod from "../inputs/ImageUpload";
 import Input from "../inputs/Input";
 
-enum STEP {
+enum STEPS {
     CATEGORY = 0,
     LOCATION = 1,
     INFO = 2,
@@ -27,10 +27,10 @@ enum STEP {
 }
 
 const RentModal = () => {
-    const rentModal = useRentModal();
-
-    const [step, setStep] = useState(STEP.CATEGORY);
+    const [step, setStep] = useState(STEPS.CATEGORY);
     const [isLoading, setIsLoading] = useState(false);
+
+    const rentModal = useRentModal();
 
     const router = useRouter();
 
@@ -59,13 +59,15 @@ const RentModal = () => {
 
     const category = watch('category');
     const location = watch('location');
-    const Map = useMemo(() => dynamic(() => import('../Map'), {
-        ssr: false
-    }), [location])
     const guestCount = watch('guestCount');
     const roomCount = watch('roomCount');
     const bathroomCount = watch('bathroomCount');
     const imageSrc = watch('imageSrc');
+
+    const Map = useMemo(() => dynamic(
+        () => import('../Map'), {
+        ssr: false
+    }), [location]);
 
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
@@ -84,20 +86,18 @@ const RentModal = () => {
     }
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        if (step !== STEP.PRICE) {
+        if (step !== STEPS.PRICE) {
             return onNext();
         }
 
         setIsLoading(true);
-
-        console.log(data);
 
         axios.post('/api/listings', data)
             .then(() => {
                 toast.success('Listing created!');
                 router.refresh();
                 reset();
-                setStep(STEP.CATEGORY)
+                setStep(STEPS.CATEGORY)
                 rentModal.onClose();
             })
             .catch(() => {
@@ -105,17 +105,17 @@ const RentModal = () => {
             })
             .finally(() => {
                 setIsLoading(false);
-            })
+            });
     }
     const actionLabel = useMemo(() => {
-        if (step === STEP.PRICE) {
+        if (step === STEPS.PRICE) {
             return 'Create';
         }
         return 'Next';
     }, [step]);
 
     const secondaryActionLabel = useMemo(() => {
-        if (step === STEP.CATEGORY) {
+        if (step === STEPS.CATEGORY) {
             return undefined;
         }
         return 'Back';
@@ -146,7 +146,7 @@ const RentModal = () => {
         </div>
     );
 
-    if (step === STEP.LOCATION) {
+    if (step === STEPS.LOCATION) {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
@@ -164,7 +164,7 @@ const RentModal = () => {
         );
     }
 
-    if (step === STEP.INFO) {
+    if (step === STEPS.INFO) {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
@@ -196,7 +196,7 @@ const RentModal = () => {
         );
     }
 
-    if (step === STEP.IMAGES) {
+    if (step === STEPS.IMAGES) {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
@@ -211,7 +211,7 @@ const RentModal = () => {
         );
     }
 
-    if (step === STEP.DESCRIPTION) {
+    if (step === STEPS.DESCRIPTION) {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
@@ -239,7 +239,7 @@ const RentModal = () => {
         );
     }
 
-    if (step === STEP.PRICE) {
+    if (step === STEPS.PRICE) {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
@@ -267,7 +267,7 @@ const RentModal = () => {
             onClose={rentModal.onClose}
             onSubmit={handleSubmit(onSubmit)}
             actionLabel={actionLabel}
-            secondaryAction={step === STEP.CATEGORY ? undefined : onBack}
+            secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
             secondaryActionLabel={secondaryActionLabel}
             body={bodyContent}
         />
