@@ -1,11 +1,11 @@
 import prisma from "@/app/libs/prismadb";
 
-interface ListingByIdParamProps {
+interface ListingByIdParam {
     listingId?: string
 }
 
 export default async function getListingById(
-    params: ListingByIdParamProps
+    params: ListingByIdParam
 ) {
     try {
         const { listingId } = params;
