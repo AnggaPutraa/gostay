@@ -7,6 +7,9 @@ import { format } from 'date-fns';
 import React, { useCallback, useMemo } from "react";
 
 import useCountries from "@/app/hooks/useCountry";
+import Image from "next/image";
+import HeartButton from "../HeartButton";
+import Button from "../Button";
 
 interface ListingCardProps {
     data: Listing;
@@ -56,11 +59,53 @@ const ListingCard = ({
 
         return `${format(startDate, 'PP')} - ${format(endDate, 'PP')}`
 
-    }, []);
+    }, [reservation]);
 
     return (
-        <div>
-
+        <div
+            onClick={() => router.push(`/listing/${data.id}`)}
+            className="col-span-1 cursor-pointer group"
+        >
+            <div className="flex flex-col gap-2 w-full">
+                <div className="aspect-square w-full relative overflow-hidden rounded-xl">
+                    <Image
+                        alt="listing"
+                        src={data.imageSrc}
+                        className="object-cover h-full w-full group-hover:scale-110 transition"
+                        fill
+                    />
+                    <div className="absolute top-3 right-3">
+                        <HeartButton
+                            listingId={data.id}
+                            currentUser={currentUser}
+                        />
+                    </div>
+                </div>
+                <div className="font-semibold text-lg">
+                    {location?.region},  {location?.label}
+                </div>
+                <div className="font-light text-neutral-500">
+                    {reservationDate || data.category}
+                </div>
+                <div className="flex flex-row items-center gap-2">
+                    <div className="font-semibold">
+                        $ {price}
+                    </div>
+                    {!reservation && (
+                        <div className="font-light">
+                            night
+                        </div>
+                    )}
+                </div>
+                {onAction && actionLabel && (
+                    <Button
+                        disabled={disabled}
+                        label={actionLabel}
+                        onClick={handleCancel}
+                        small
+                    />
+                )}
+            </div>
         </div>
     );
 }
