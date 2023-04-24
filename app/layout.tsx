@@ -7,6 +7,7 @@ import ToastProvider from './providers/ToasterProvider';
 import LoginModal from './components/modal/LoginModal';
 import getCurrentUser from './actions/getCurrentUser';
 import RentModal from './components/modal/RentModal';
+import SearchModal from './components/modal/SearchModal';
 
 export const metadata = {
   title: 'gostay',
@@ -28,6 +29,7 @@ export default async function RootLayout({
       <body className={font.className}>
         <HydrationHandler>
           <ToastProvider />
+          <SearchModal />
           <RentModal />
           <LoginModal />
           <RegisterModal />

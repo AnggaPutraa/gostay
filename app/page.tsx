@@ -6,7 +6,14 @@ import HydrationHandler from "./components/HydrationHandler";
 import ListingCard from "./components/listings/ListingCard";
 
 interface ListingsParams {
-  userId?: string
+  userId?: string;
+  guestCount?: number;
+  roomCount?: number;
+  bathroomCount?: number;
+  startDate?: string;
+  endDate?: string;
+  locationValue?: string;
+  category?: string;
 }
 
 interface HomeProps {
