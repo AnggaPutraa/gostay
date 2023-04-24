@@ -11,7 +11,7 @@ import SearchModal from './components/modal/SearchModal';
 
 export const metadata = {
   title: 'gostay',
-  description: 'Ayoo Ngekos',
+  description: 'Find the most relaxing place',
 }
 
 const font = Nunito({
