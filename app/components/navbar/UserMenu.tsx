@@ -22,7 +22,7 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
     const loginModal = useLoginModal();
     const rentModal = useRentModal();
     const router = useRouter();
-    
+
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleOpen = useCallback(() => {
@@ -68,7 +68,7 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
                                     label='My favorites'
                                 />
                                 <MenuItem
-                                    onClick={() => { }}
+                                    onClick={() => router.push('/reservations')}
                                     label='My reservations'
                                 />
                                 <MenuItem
