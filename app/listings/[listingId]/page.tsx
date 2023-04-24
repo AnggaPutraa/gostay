@@ -3,6 +3,7 @@ import EmptyQueryParamState from "@/app/components/EmptyQueryParamState";
 import HydrationHandler from "@/app/components/HydrationHandler";
 import ListingClient from "./ListingClient";
 import getCurrentUser from "@/app/actions/getCurrentUser";
+import getReservation from "@/app/actions/getReservation";
 
 interface IndividualListingPageProps {
     listingId: string
@@ -11,10 +12,11 @@ interface IndividualListingPageProps {
 const IndividualListingPage = async ({
     params
 }: { params: IndividualListingPageProps }) => {
-    const listing = await getListingById(params);
+    const reservations = await getReservation(params);
+    const listingById = await getListingById(params);
     const currentUser = await getCurrentUser();
 
-    if (!listing) {
+    if (!listingById) {
         return (
             <HydrationHandler>
                 <EmptyQueryParamState />
@@ -25,7 +27,8 @@ const IndividualListingPage = async ({
     return (
         <HydrationHandler>
             <ListingClient
-                listing={listing}
+                reservations={reservations}
+                listing={listingById}
                 currentUser={currentUser}
             />
         </HydrationHandler>
