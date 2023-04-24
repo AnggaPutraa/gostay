@@ -8,12 +8,14 @@ interface EmptyQueryParamStateProps {
     title?: string;
     subtitle?: string;
     showReset?: boolean;
+    showResetText?: string;
 }
 
 const EmptyQueryParamState = ({
     title = 'No exact matches',
     subtitle = 'Try changing or removing some of your filters',
-    showReset
+    showReset,
+    showResetText
 }: EmptyQueryParamStateProps) => {
 
     const router = useRouter();
@@ -29,7 +31,7 @@ const EmptyQueryParamState = ({
                 {showReset && (
                     <Button 
                     outline
-                    label="Remove all filters"
+                    label={showResetText || "Remove all filters"}
                     onClick={() => {router.push('/')}}
                     />
                 )}
